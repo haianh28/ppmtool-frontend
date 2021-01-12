@@ -1,8 +1,8 @@
 import axios from "axios";
-import { GET_ERRORS, GET_PROJECT, GET_PROJECTS } from "./type";
+import { GET_ERRORS, GET_PROJECT, GET_PROJECTS,DELETE_PROJECT } from "./type";
 export const createProject = (project, history) => async (dispatch) => {
   try {
-    const res = await axios.post("http://localhost:5000/api/project", project);
+    const res = await axios.post("/api/project", project);
     history.push("/dashboard");
     dispatch({
       type: GET_ERRORS,
@@ -17,8 +17,7 @@ export const createProject = (project, history) => async (dispatch) => {
 };
 
 export const getProjects = () => async dispatch => {
-  const res = await axios.get("http://localhost:5000/api/project/all");
-  console.log("data",res)
+  const res = await axios.get("/api/project/all");
   dispatch({
     type: GET_PROJECTS,
     payload: res.data
@@ -27,7 +26,7 @@ export const getProjects = () => async dispatch => {
 
 export const getProject = (id,history) => async dispatch =>{
 try {
-  const res = await axios.get(`http://localhost:5000/api/project/${id}`);
+  const res = await axios.get(`/api/project/${id}`);
   dispatch({
     type : GET_PROJECT,
     payload : res.data
@@ -35,5 +34,18 @@ try {
 } catch (error) {
   history.push("/dashboard")
 }
+}
+
+export const deleteProject = id => async dispatch=>{
+  if(window.confirm(
+    "Bạn có chắc chắn muốn xóa không !")
+    ){
+    await axios.delete(`/api/project/${id}`);
+    dispatch({
+      type: DELETE_PROJECT,
+      payload:id
+    });
+  }
+  
 }
 

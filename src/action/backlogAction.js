@@ -1,5 +1,5 @@
 import axios from "axios"
-import { GET_BACKLOG, GET_BACKLOGS, GET_ERRORS } from "./type";
+import { DELETE_BACKLOG, GET_BACKLOG, GET_BACKLOGS, GET_ERRORS } from "./type";
 
 export const createProjectTask = (backlog_id,project_task,history) => async (dispatch) =>{
 try{
@@ -40,4 +40,27 @@ export const getBacklogAndProjectTask = (id,projectSequence,history) => async (d
     } catch (err) {
         history.push(`/projectBoard/${id}`)
     }
+}
+
+export const updateProjectBacklog = (backlog_id,pt_id,project_task,history) => async (dispatch) =>{
+    await axios.patch(`/api/backlog/${backlog_id}/${pt_id}`,project_task);
+    history.push(`/projectBoard/${backlog_id}`)
+    try {
+        dispatch({
+            type:GET_BACKLOG,
+            payload:{}
+        })
+    } catch (err) {
+        history.push(`/projectBoard/${backlog_id}`)
+    }
+}
+export const deleteProjectBacklog = (backlog_id,pt_id) => async (dispatch) =>{
+    if(window.confirm("Bạn có chắc muốn xóa !")){
+        await axios.delete(`/api/backlog/${backlog_id}/${pt_id}`);
+        dispatch({
+            type:DELETE_BACKLOG,
+            payload:pt_id
+        })
+    }
+ 
 }

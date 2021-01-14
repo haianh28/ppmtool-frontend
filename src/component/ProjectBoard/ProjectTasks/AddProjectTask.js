@@ -9,7 +9,6 @@ class AddProjectTask extends Component {
     constructor(props) {
         super(props);
         const { id } = this.props.match.params;
-        console.log(id)
         // luu tru cac du lieu vao state
         this.state = {
             summary: "",
@@ -53,14 +52,13 @@ class AddProjectTask extends Component {
     render() {
         const { id } = this.props.match.params;
         const { errors } = this.state;
-        console.log("hehe", errors.summary)
         return (
             <div>
                 <div className="add-PBI">
                     <div className="container">
                         <div className="row">
                             <div className="col-md-8 m-auto">
-                                <Link to={`/projectBoard/${this.state.projectIdentifier}`} className="btn btn-light">
+                                <Link to={`/projectBoard/${id}`} className="btn btn-light">
                                     Back to Project Board
                     </Link>
                                 <h4 className="display-4 text-center">Create Project Task</h4>

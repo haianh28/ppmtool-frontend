@@ -25,7 +25,7 @@ function App() {
     <Route exact path="/projectBoard/:id" component={ProjectBoard}/>
     <Route exact path="/addProjectTask/:id" component={AddProjectTask}/>
     <Route exact path="/backlog" component={Backlog}/>
-    <Route exact path="/projectBoard/:backlog_id/updateProjectTask" component={UpdateProjectTask}/>
+    <Route exact path="/projectBoard/:backlog_id/:pt_id" component={UpdateProjectTask}/>
     </div>
     </Router>
     </Provider>

@@ -19,9 +19,10 @@ export default function (state = inittialState, action) {
         case DELETE_BACKLOG:
             return {
                 ...state,
-                // project_task: project_task.state.filter(project_task => {
-                //     project_task.id !== action.payload
-                // })
+                // dùng như này giúp nó tự lọc luôn không cần phải reload trang để mất data
+                project_tasks: state.project_tasks.filter(
+                    project_task => project_task.projectSequence !== action.payload
+                  )
             }
         default:
             return state;

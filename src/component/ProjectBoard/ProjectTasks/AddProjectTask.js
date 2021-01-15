@@ -39,7 +39,7 @@ class AddProjectTask extends Component {
         const newtask = {
             summary: this.state.summary,
             acceptanceCriteria: this.state.acceptanceCriteria,
-            duedate: this.state.dueate,
+            duedate: this.state.duedate,
             priority: this.state.priority,
             status: this.state.status,
         };

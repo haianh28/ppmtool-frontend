@@ -21,7 +21,9 @@ export const createNewUser = (newUser, history) => async dispatch => {
   export const login = loginRquest => async dispatch =>{
 
     try {
+      debugger
         const res = await axios.post(`/api/user/login`);
+        console.log("hì",res)
         // extract token from res.data
         const {token} = res.data;
         // set token in localstogae
@@ -37,8 +39,8 @@ export const createNewUser = (newUser, history) => async dispatch => {
         })
     } catch (err) {
         dispatch({
-          type:SET_CURRENT_USER,
-          payload:err.data.response
+          type:GET_ERRORS,
+          payload:err.response.data
         })
     }
 }

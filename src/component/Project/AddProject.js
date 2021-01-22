@@ -142,7 +142,7 @@ onSubmit(e){
 }
 AddProject.propTypes = {
   createProject: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 };
 const mapStateToProps = state =>({
   errors: state.errors

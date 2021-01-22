@@ -18,8 +18,8 @@ export default function (state = inittialState, action) {
     case SET_CURRENT_USER:
       return {
         ...state,
-        payload: action.payload,
         invalidToken: booleanActionPayload(action.payload),
+        user: action.payload,
       };
     default:
       return state;

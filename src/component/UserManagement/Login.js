@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
 class Login extends Component {
+    
     render() {
         return (
-            <div classNameName="login">
+            <div className="login">
         <div className="container">
             <div className="row">
                 <div className="col-md-8 m-auto">

@@ -21,11 +21,11 @@ export const createNewUser = (newUser, history) => async dispatch => {
   export const login = loginRquest => async dispatch =>{
 
     try {
-      debugger
-        const res = await axios.post(`/api/user/login`);
+        const res = await axios.post(`/api/user/login`,loginRquest);
         console.log("hì",res)
         // extract token from res.data
         const {token} = res.data;
+        console.log(token)
         // set token in localstogae
         localStorage.setItem("token",token);
         // set token in header
@@ -44,3 +44,11 @@ export const createNewUser = (newUser, history) => async dispatch => {
         })
     }
 }
+export const logout = () => dispatch => {
+  localStorage.removeItem("jwtToken");
+  setJWTToken(false);
+  dispatch({
+    type: SET_CURRENT_USER,
+    payload: {}
+  });
+};

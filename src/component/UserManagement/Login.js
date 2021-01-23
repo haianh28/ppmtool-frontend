@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { login } from "../../action/sercurityActions"
 import PropTypes from "prop-types";
 import classnames from "classnames";
+import setJWTToken from '../../sercurityUtils/setJWTToken';
 
 class Login extends Component {
     constructor() {
@@ -32,7 +33,6 @@ class Login extends Component {
             username: this.state.username,
             password: this.state.password
         }
-        debugger
         this.props.login(LoginRequest);
     }
 

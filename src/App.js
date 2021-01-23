@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Dashboard from './component/Dashboard';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,7 +14,25 @@ import UpdateProjectTask from './component/ProjectBoard/ProjectTasks/UpdateProje
 import Landing from './component/Layout/Landing';
 import Register from './component/UserManagement/Register';
 import Login from './component/UserManagement/Login';
+import jwt_decode from "jwt-decode";
+import { SET_CURRENT_USER } from './action/type';
+import setJWTToken from './sercurityUtils/setJWTToken';
+import {logout} from "./action/sercurityActions"
+const jwtToken = localStorage.jwtToken
+if(jwtToken){
+    setJWTToken(jwtToken)
+    const  deco_jwtToken = jwt_decode(jwtToken);
+    store.dispatch({
+        type:SET_CURRENT_USER,
+        payload:deco_jwtToken  
+    })
 
+const currentTime = Date.now() / 1000;
+if (deco_jwtToken.exp < currentTime) {
+  store.dispatch(logout());
+  window.location.href = "/";
+}
+}
 
 function App() {
   return (

@@ -21,13 +21,13 @@ export const createNewUser = (newUser, history) => async dispatch => {
   export const login = loginRquest => async dispatch =>{
 
     try {
-        const res = await axios.post(`/api/user/login`,loginRquest);
-        console.log("hì",res)
+        const res = await axios.post("/api/user/login",loginRquest);
         // extract token from res.data
-        const {token} = res.data;
+        const { token } = res.data;
         console.log(token)
         // set token in localstogae
-        localStorage.setItem("token",token);
+         localStorage.setItem("token",token);
+        // localStorage.setItem("jwtToken", token);
         // set token in header
         setJWTToken(token);
         // decode jwt on react
@@ -44,6 +44,32 @@ export const createNewUser = (newUser, history) => async dispatch => {
         })
     }
 }
+
+// export const login = LoginRequest => async dispatch => {
+//   try {
+//     // post => Login Request
+//     const res = await axios.post("/api/user/login", LoginRequest);
+//     // extract token from res.data
+//     const { token } = res.data;
+//     // store the token in the localStorage
+//     localStorage.setItem("token", token);
+//     // set our token in header ***
+//     setJWTToken(token);
+//     // decode token on React
+//     const decoded = jwt_decode(token);
+//     // dispatch to our securityReducer
+//     dispatch({
+//       type: SET_CURRENT_USER,
+//       payload: decoded
+//     });
+//   } catch (err) {
+//     dispatch({
+//       type: GET_ERRORS,
+//       payload: err.response.data
+//     });
+//   }
+// };
+
 export const logout = () => dispatch => {
   localStorage.removeItem("jwtToken");
   setJWTToken(false);

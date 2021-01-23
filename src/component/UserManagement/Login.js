@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { login } from "../../action/sercurityActions"
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import setJWTToken from '../../sercurityUtils/setJWTToken';
 
 class Login extends Component {
     constructor() {
@@ -16,16 +15,22 @@ class Login extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this)
     }
+
+    componentDidMount() {
+        if (this.props.security.validToken) {
+          this.props.history.push("/dashboard");
+        }
+      }
     // kiểm tra mỗi lần thay đổi 
     componentWillReceiveProps(nextProps) {
-        if (this.props.security.invalidToken) {
-            this.props.history.push("/dashboard")
+        if (nextProps.security.validToken) {
+          this.props.history.push("/dashboard");
         }
-
+    
         if (nextProps.errors) {
-            this.setState({ errors: nextProps.errors })
+          this.setState({ errors: nextProps.errors });
         }
-    }
+      }
 
     onSubmit(e) {
         e.preventDefault();
@@ -88,13 +93,18 @@ class Login extends Component {
         );
     }
 }
-Login.propType = {
+Login.propTypes = {
     login: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
     security: PropTypes.object.isRequired
-}
-const mapStateToProps = state => ({
+
+  };
+  
+  const mapStateToProps = state => ({
     security: state.security,
     errors: state.errors
-})
-export default connect(mapStateToProps, { login })(Login);
+  });
+  export default connect(
+    mapStateToProps,
+    { login }
+  )(Login);

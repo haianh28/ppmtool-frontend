@@ -17,21 +17,22 @@ import Login from './component/UserManagement/Login';
 import jwt_decode from "jwt-decode";
 import { SET_CURRENT_USER } from './action/type';
 import setJWTToken from './sercurityUtils/setJWTToken';
-import {logout} from "./action/sercurityActions"
-const jwtToken = localStorage.jwtToken
-if(jwtToken){
-    setJWTToken(jwtToken)
-    const  deco_jwtToken = jwt_decode(jwtToken);
-    store.dispatch({
-        type:SET_CURRENT_USER,
-        payload:deco_jwtToken  
-    })
+import {logout} from "./action/sercurityActions";
+const jwtToken = localStorage.token  // ở đây phải lấy tên mà ta gán vào localStorage.setItem("token",token);
+if (jwtToken) {
+  debugger
+  setJWTToken(jwtToken);
+  const decoded_jwtToken = jwt_decode(jwtToken);
+  store.dispatch({
+    type: SET_CURRENT_USER,
+    payload: decoded_jwtToken
+  });
 
-const currentTime = Date.now() / 1000;
-if (deco_jwtToken.exp < currentTime) {
-  store.dispatch(logout());
-  window.location.href = "/";
-}
+  const currentTime = Date.now() / 1000;
+  if (decoded_jwtToken.exp < currentTime) {
+    store.dispatch(logout());
+    window.location.href = "/";
+  }
 }
 
 function App() {
